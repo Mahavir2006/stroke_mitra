@@ -6,7 +6,6 @@
 /// X/Y/Z axis readings in real-time.
 
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import '../../app/theme.dart';
@@ -126,7 +125,7 @@ class _MotionTestScreenState extends State<MotionTestScreen> {
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
                   transform: Matrix4.identity()
-                    ..translate(_ballX, _ballY),
+                    ..translateByDouble(_ballX, _ballY, 0),
                   child: Container(
                     width: 24,
                     height: 24,

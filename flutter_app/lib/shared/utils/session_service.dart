@@ -3,7 +3,6 @@
 /// Manages screening sessions via Supabase. Replaces the
 /// original Express API calls (startSession, submitData).
 
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../core/constants.dart';
 import '../../core/supabase_client.dart';
 

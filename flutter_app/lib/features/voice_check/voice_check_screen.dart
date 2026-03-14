@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import '../../app/theme.dart';
 import '../../core/constants.dart';
 
@@ -171,7 +170,6 @@ class _VoiceCheckScreenState extends State<VoiceCheckScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (i) {
-                    final delay = i * 0.1;
                     final height = _isRecording
                         ? 12.0 +
                             (48.0 *
