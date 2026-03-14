@@ -1,0 +1,22 @@
+# Flutter
+.dart_tool/
+.packages
+build/
+*.iml
+*.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Supabase
+supabase/.temp/
