@@ -116,6 +116,12 @@ class AppShell extends StatelessWidget {
         child: BottomNavigationBar(
           currentIndex: idx,
           onTap: (i) => _onTap(context, i),
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: AppTheme.bgCard,
+          selectedItemColor: AppTheme.primary,
+          unselectedItemColor: AppTheme.slate400,
+          selectedFontSize: 11,
+          unselectedFontSize: 11,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
