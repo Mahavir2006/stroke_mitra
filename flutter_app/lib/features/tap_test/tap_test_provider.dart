@@ -50,24 +50,26 @@ class TapTestNotifier extends StateNotifier<TapTestState> {
   Timer? _clockTimer;
   Timer? _flashTimer;
 
+  static const double _buttonSize = 72.0;
   static const double _buttonRadius = 36.0;
-  static const double _buttonDiameter = 72.0;
 
-  double _dx = 1.4;
-  double _dy = 1.0;
-  double _screenWidth = 0;
-  double _screenHeight = 0;
+  // Bouncing ball velocity
+  double _dx = 2.5;
+  double _dy = 1.8;
+  double _arenaWidth = 300;
+  double _arenaHeight = 340;
 
   TapTestNotifier() : super(const TapTestState());
 
-  void startTest(double screenWidth, double screenHeight) {
-    _screenWidth = screenWidth;
-    _screenHeight = screenHeight;
-    _dx = 1.4;
-    _dy = 1.0;
+  void startTest(double arenaWidth, double arenaHeight) {
+    _arenaWidth = arenaWidth;
+    _arenaHeight = arenaHeight;
+    _dx = 2.5;
+    _dy = 1.8;
 
-    final startX = screenWidth / 2 - _buttonRadius;
-    final startY = screenHeight / 2 - _buttonRadius;
+    // Start in the centre
+    final startX = (arenaWidth / 2) - _buttonRadius;
+    final startY = (arenaHeight / 2) - _buttonRadius;
 
     state = TapTestState(
       isRunning: true,
@@ -75,26 +77,35 @@ class TapTestNotifier extends StateNotifier<TapTestState> {
       buttonY: startY,
     );
 
-    // 60fps movement timer
+    // ~60fps movement — pure bouncing ball, no sensors needed
     _moveTimer = Timer.periodic(const Duration(milliseconds: 16), (_) {
       double nx = state.buttonX + _dx;
       double ny = state.buttonY + _dy;
 
-      // Bounce off walls
-      if (nx <= 0 || nx >= _screenWidth - _buttonDiameter) {
-        _dx = -_dx;
-        nx = nx.clamp(0, _screenWidth - _buttonDiameter);
+      final maxX = _arenaWidth - _buttonSize;
+      final maxY = _arenaHeight - _buttonSize;
+
+      if (nx <= 0) {
+        nx = 0;
+        _dx = _dx.abs();
+      } else if (nx >= maxX) {
+        nx = maxX;
+        _dx = -_dx.abs();
       }
-      if (ny <= 0 || ny >= _screenHeight - _buttonDiameter) {
-        _dy = -_dy;
-        ny = ny.clamp(0, _screenHeight - _buttonDiameter);
+
+      if (ny <= 0) {
+        ny = 0;
+        _dy = _dy.abs();
+      } else if (ny >= maxY) {
+        ny = maxY;
+        _dy = -_dy.abs();
       }
 
       state = state.copyWith(buttonX: nx, buttonY: ny);
     });
 
     // 1-second elapsed counter
-    _clockTimer = Timer.periodic(const Duration(seconds: 1), (t) {
+    _clockTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       final elapsed = state.elapsedSeconds + 1;
       if (elapsed >= TapTestService.testDurationSeconds) {
         _finishTest();
@@ -107,27 +118,25 @@ class TapTestNotifier extends StateNotifier<TapTestState> {
   void registerTap(Offset tapPosition) {
     if (!state.isRunning) return;
 
-    final buttonCenterX = state.buttonX + _buttonRadius;
-    final buttonCenterY = state.buttonY + _buttonRadius;
-    final dx = tapPosition.dx - buttonCenterX;
-    final dy = tapPosition.dy - buttonCenterY;
-    final distance = (dx * dx + dy * dy);
+    final centerX = state.buttonX + _buttonRadius;
+    final centerY = state.buttonY + _buttonRadius;
+    final dx = tapPosition.dx - centerX;
+    final dy = tapPosition.dy - centerY;
+    final distSq = dx * dx + dy * dy;
 
-    if (distance <= _buttonRadius * _buttonRadius) {
+    if (distSq <= _buttonRadius * _buttonRadius) {
       _flashTimer?.cancel();
       state = state.copyWith(
         hitCount: state.hitCount + 1,
         lastHitFlash: true,
       );
       _flashTimer = Timer(const Duration(milliseconds: 150), () {
-        state = state.copyWith(lastHitFlash: false);
+        if (mounted) state = state.copyWith(lastHitFlash: false);
       });
     }
   }
 
-  void stopTest() {
-    _finishTest();
-  }
+  void stopTest() => _finishTest();
 
   void reset() {
     _cancelTimers();
