@@ -16,7 +16,8 @@ class AppShell extends StatelessWidget {
     if (location.startsWith('/face')) return 1;
     if (location.startsWith('/voice')) return 2;
     if (location.startsWith('/motion')) return 3;
-    return 0; // /app or default
+    if (location.startsWith('/tap')) return 4;
+    return 0;
   }
 
   void _onTap(BuildContext context, int index) {
@@ -29,6 +30,8 @@ class AppShell extends StatelessWidget {
         context.go('/voice');
       case 3:
         context.go('/motion');
+      case 4:
+        context.go('/tap');
     }
   }
 
@@ -133,6 +136,11 @@ class AppShell extends StatelessWidget {
               icon: Icon(Icons.show_chart_outlined),
               activeIcon: Icon(Icons.show_chart),
               label: 'Motion',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.touch_app_outlined),
+              activeIcon: Icon(Icons.touch_app),
+              label: 'Tap',
             ),
           ],
         ),
