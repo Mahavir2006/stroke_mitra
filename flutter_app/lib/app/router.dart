@@ -20,6 +20,7 @@ import '../features/dashboard/dashboard_screen.dart';
 import '../features/face_analysis/face_analysis_screen.dart';
 import '../features/voice_check/voice_check_screen.dart';
 import '../features/motion_test/motion_test_screen.dart';
+import '../features/tap_test/tap_test_screen.dart';
 import '../features/auth/screens/login_screen.dart';
 import '../features/auth/screens/signup_screen.dart';
 import '../features/auth/screens/forgot_password_screen.dart';
@@ -108,6 +109,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/motion',
             name: 'motion',
             builder: (context, state) => const MotionTestScreen(),
+          ),
+          GoRoute(
+            path: '/tap',
+            name: 'tap',
+            builder: (context, state) => const TapTestScreen(),
           ),
         ],
       ),

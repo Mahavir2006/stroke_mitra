@@ -59,6 +59,13 @@ class DashboardScreen extends StatelessWidget {
             subtitle: 'Assess arm stability',
             onTap: () => context.go('/motion'),
           ),
+          const SizedBox(height: AppTheme.spaceMD),
+          _ActionCard(
+            icon: Icons.touch_app_rounded,
+            title: 'Tap Test',
+            subtitle: 'Finger coordination check',
+            onTap: () => context.go('/tap'),
+          ),
 
           // ─── Disclaimer ───
           const DisclaimerWidget(),

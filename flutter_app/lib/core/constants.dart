@@ -24,6 +24,7 @@ class AppConstants {
   static const String dataTypeFace = 'face';
   static const String dataTypeVoice = 'voice';
   static const String dataTypeMotion = 'motion';
+  static const String dataTypeTap = 'tap';
 
   // ─── App Info ───
   static const String appName = 'Stroke Mitra';
