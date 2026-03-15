@@ -1,5 +1,4 @@
 /// Face Analysis Repository — Supabase data access for face screening results
-import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/constants.dart';
 import '../../../core/supabase_client.dart';
 

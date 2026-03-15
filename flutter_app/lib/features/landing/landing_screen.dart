@@ -2,10 +2,6 @@
 /// Full marketing landing page mirroring the React LandingPage component.
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../app/theme.dart';
 import 'widgets/hero_section.dart';
 import 'widgets/what_is_section.dart';
 import 'widgets/how_it_works_section.dart';

@@ -30,6 +30,9 @@ dependencies:
   # Motion sensing
   sensors_plus: ^4.0.2
 
+  # Charts
+  fl_chart: ^0.68.0
+
   # Audio recording
   record: ^5.0.4
   audioplayers: ^5.2.1
