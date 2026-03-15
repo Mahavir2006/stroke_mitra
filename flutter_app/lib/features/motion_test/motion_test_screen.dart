@@ -125,7 +125,7 @@ class _MotionTestScreenState extends State<MotionTestScreen> {
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
                   transform: Matrix4.identity()
-                    ..translateByDouble(_ballX, _ballY, 0),
+                    ..translate(_ballX, _ballY, 0),
                   child: Container(
                     width: 24,
                     height: 24,

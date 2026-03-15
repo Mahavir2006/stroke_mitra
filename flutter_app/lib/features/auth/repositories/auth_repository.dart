@@ -4,7 +4,7 @@
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/supabase_client.dart';
-import 'auth_service.dart';
+import '../services/auth_service.dart';
 
 class AuthRepository {
   final AuthService _authService;
